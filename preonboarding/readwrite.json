@@ -1,0 +1,30 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupEgress",
+          "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
+          "ec2:ModifySecurityGroupRules",
+          "ec2:DescribeTags",
+          "ec2:CreateTags",
+          "ec2:DeleteTags",
+          "ec2:DescribeNetworkAcls",
+          "ec2:CreateNetworkAclEntry",
+          "ec2:ReplaceNetworkAclEntry",
+          "ec2:DeleteNetworkAclEntry"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:security-group-rule/*",
+          "arn:aws:ec2:*:*:security-group/*",
+          "arn:aws:ec2:*:*:network-acl/*"
+        ]
+      }
+    ]
+  }
+  
