@@ -5,14 +5,14 @@ mkdir -p terraform
 echo "📁 Ensured 'terraform/' directory exists."
 
 # Ask for Service Account name
-read -p "🔐 Enter your Service Account name: " SERVICE_ACCOUNT
+read -p "🔐 Enter your Service Account name: " CLIENT_ID
 if [[ -z "$CLIENT_ID" ]]; then
   echo "❌ Service Account name is required."
   exit 1
 fi
 
 # Ask for Service Key file path
-read -p "📄 Enter your Service Account key: " KEY_PATH
+read -p "📄 Enter your Service Account key: " CLIENT_SECRET
 if [[ -z "$CLIENT_SECRET" ]]; then
   echo "❌ Service Account name is required"
   exit 1
@@ -45,3 +45,5 @@ echo "✅ Cluster Account ID: $ACCOUNT_ID"
 
 export TF_VAR_illumio_cloudsecure_client_secret= $CLIENT_SECRET
 export TF_VAR_illumio_cloudsecure_client_id=$CLIENT_ID
+
+terraform -chdir=onboarding plan -var "role_arn=$ROLE_ARN" -var "role_id=$ROLE_ID" -var "account_id=$ACCOUNT_ID"
