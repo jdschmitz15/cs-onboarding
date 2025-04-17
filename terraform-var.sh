@@ -6,14 +6,14 @@ echo "📁 Ensured 'terraform/' directory exists."
 
 # Ask for Service Account name
 read -p "🔐 Enter your Service Account name: " SERVICE_ACCOUNT
-if [[ -z "$SERVICE_ACCOUNT" ]]; then
+if [[ -z "$CLIENT_ID" ]]; then
   echo "❌ Service Account name is required."
   exit 1
 fi
 
 # Ask for Service Key file path
 read -p "📄 Enter your Service Account key: " KEY_PATH
-if [[ -z "$KEY_PATH" ]]; then
+if [[ -z "$CLIENT_SECRET" ]]; then
   echo "❌ Service Account name is required"
   exit 1
 fi
@@ -43,4 +43,5 @@ echo "✅ Cluster Account ID: $ACCOUNT_ID"
 
 
 
-export illumio_cloudsecure_client_secret
+export TF_VAR_illumio_cloudsecure_client_secret= $CLIENT_SECRET
+export TF_VAR_illumio_cloudsecure_client_id=$CLIENT_ID

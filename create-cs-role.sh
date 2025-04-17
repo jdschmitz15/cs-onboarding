@@ -7,11 +7,17 @@ READ_POLICY_FILE="readonly.json"
 WRITE_POLICY_FILE="readwrite.json"
 REGION="us-west-1"
 
-echo "Creating IAM Role: $ROLE_NAME"
-aws iam create-role \
-  --role-name $ROLE_NAME \
-  --assume-role-policy-document file://$DIR/$TRUST_POLICY_FILE \
-  --region $REGION
+# Check if the role already exists
+echo "Checking if IAM Role $ROLE_NAME already exists..."
+if aws iam get-role --role-name $ROLE_NAME --region $REGION > /dev/null 2>&1; then
+  echo "IAM Role $ROLE_NAME already exists. Skipping creation."
+else
+  echo "Creating IAM Role: $ROLE_NAME"
+  aws iam create-role \
+    --role-name $ROLE_NAME \
+    --assume-role-policy-document file://$DIR/$TRUST_POLICY_FILE \
+    --region $REGION
+fi
 
 echo "Attaching managed policy: SecurityAudit"
 aws iam attach-role-policy \
