@@ -12,7 +12,7 @@ if [[ -z "$SERVICE_ACCOUNT" ]]; then
 fi
 
 # Ask for Service Key file path
-read -p "📄 Enter the path to your Service Account key JSON file: " KEY_PATH
+read -p "📄 Enter your Service Account key: " KEY_PATH
 if [[ -z "$KEY_PATH" ]]; then
   echo "❌ Service Account name is required"
   exit 1
