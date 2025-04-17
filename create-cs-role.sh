@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ROLE_NAME="IllumioCloudIntegrationRole"
-DIR="./terraform"
+DIR="preonboarding"
 TRUST_POLICY_FILE="trust-policy.json"
 READ_POLICY_FILE="readonly-policy.json"
 WRITE_POLICY_FILE="write-policy.json"
