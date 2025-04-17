@@ -43,7 +43,7 @@ echo "✅ Cluster Account ID: $ACCOUNT_ID"
 
 
 
-export TF_VAR_illumio_cloudsecure_client_secret= $CLIENT_SECRET
+export TF_VAR_illumio_cloudsecure_client_secret=$CLIENT_SECRET
 export TF_VAR_illumio_cloudsecure_client_id=$CLIENT_ID
 
 terraform -chdir=onboarding plan -var "role_arn=$ROLE_ARN" -var "role_id=$ROLE_ID" -var "account_id=$ACCOUNT_ID"
