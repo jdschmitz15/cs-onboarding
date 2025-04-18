@@ -31,8 +31,8 @@ if [[ ! "$CLIENT_SECRET" =~ ^[a-zA-Z0-9_-]+$ ]]; then
 fi
 
 # Get Role data
-ROLE_ARN=$(aws iam list-roles --query "Roles[?contains(RoleName, 'eksctl-testcluster-cluster')].[Arn]" --output text)
-ROLE_ID=$(aws iam list-roles --query "Roles[?contains(RoleName, 'eksctl-testcluster-cluster')].[RoleId]" --output text)
+ROLE_ARN=$(aws iam list-roles --query "Roles[?contains(RoleName, 'IllumioCloudIntegrationRole')].[Arn]" --output text)
+ROLE_ID=$(aws iam list-roles --query "Roles[?contains(RoleName, 'IllumioCloudIntegrationRole')].[RoleId]" --output text)
 
 # Get account ID
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
