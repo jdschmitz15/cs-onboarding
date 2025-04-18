@@ -21,7 +21,7 @@ variable "role_arn" {
   description = "The AWS role arn for onboarding aws."
 }
 
-variable "role_id" {
+variable "role_external_id" {
   type        = string
   sensitive   = true
   description = "The AWS role id for onboarding aws."
