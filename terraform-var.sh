@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Ensure terraform directory exists
-mkdir -p terraform
-echo "📁 Ensured 'terraform/' directory exists."
+# mkdir -p terraform
+# echo "📁 Ensured 'terraform/' directory exists."
 
 # Ask for Service Account name
 read -p "🔐 Enter your Service Account name: " CLIENT_ID
@@ -57,4 +57,6 @@ echo "✅ Cluster Account ID: $ACCOUNT_ID"
 export TF_VAR_illumio_cloudsecure_client_secret=$CLIENT_SECRET
 export TF_VAR_illumio_cloudsecure_client_id=$CLIENT_ID
 
+terraform -chdir=onboarding init
 terraform -chdir=onboarding plan -var "role_arn=$ROLE_ARN" -var "role_id=$ROLE_ID" -var "aws_account_id=$ACCOUNT_ID"
+terraform -chdir=onboarding apply -var "role_arn=$ROLE_ARN" -var "role_id=$ROLE_ID" -var "aws_account_id=$ACCOUNT_ID" -auto-approve
