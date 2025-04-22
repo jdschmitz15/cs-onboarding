@@ -26,3 +26,10 @@ variable "role_external_id" {
   sensitive   = true
   description = "The AWS role id for onboarding aws."
 }
+
+variable "storage_bucket_arn" {
+  type        = string
+  sensitive   = true
+  description = "The S3 bucket ARN for flow logs."
+  
+}

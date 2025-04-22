@@ -264,6 +264,7 @@ function run_terraform() {
         -var "role_arn=$ROLE_ARN" \
         -var "role_external_id=$RANDOM_NUMBER" \
         -var "aws_account_id=$ACCOUNT_ID" \
+        -var "storage_bucket_arn=$BUCKET_ARN" \
         -auto-approve
 }
 
