@@ -212,7 +212,7 @@ aws iam put-role-policy \
         \"Effect\": \"Allow\",
         \"Sid\": \"IllumioBucketListAccess\",
         \"Action\": [\"s3:ListBucket\"],
-        \"Resource\": [\"${OBJECT_ARN}\"]
+        \"Resource\": [\"${BUCKET_ARN}\"]
       }
     ]
   }"
@@ -228,7 +228,7 @@ aws iam put-role-policy \
         \"Effect\": \"Allow\",
         \"Sid\": \"IllumioBucketReadAccess\",
         \"Action\": [\"s3:GetObject\"],
-        \"Resource\": [\"${OBJECT_ARN}\"]
+        \"Resource\": [\"${BUCKET_ARN}\"]
       }
     ]
   }"
