@@ -197,7 +197,56 @@ EOF
 
     echo "✅ Flow logs enabled for VPC $VPC_ID and sent to bucket $BUCKET_NAME"
 }
+# ============================
+# Add CS S3 Bucket Policy
+# ============================
+echo "✅ Applying IllumioBucketListAccessbucket policy to $BUCKET_NAME..."
+aws iam put-role-policy \
+  --role-name IllumioCloudIntegrationRole \
+  --policy-name IllumioCloudBucketListPolicy \
+  --policy-document "{
+    \"Version\": \"2012-10-17\",
+    \"Statement\": [
+      {
+        \"Effect\": \"Allow\",
+        \"Sid\": \"IllumioBucketListAccess\",
+        \"Action\": [\"s3:ListBucket\"],
+        \"Resource\": [\"${OBJECT_ARN}\"]
+      }
+    ]
+  }"
 
+echo "✅ Applying IllumioBucketReadAccess policy to $BUCKET_NAME..."
+aws iam put-role-policy \
+  --role-name $ROLE_NAME \
+  --policy-name IllumioCloudBucketReadPolicy \
+  --policy-document "{
+    \"Version\": \"2012-10-17\",
+    \"Statement\": [
+      {
+        \"Effect\": \"Allow\",
+        \"Sid\": \"IllumioBucketReadAccess\",
+        \"Action\": [\"s3:GetObject\"],
+        \"Resource\": [\"${OBJECT_ARN}\"]
+      }
+    ]
+  }"
+
+echo "✅ Applying IllumioBucketGetLocationAccess policy to $BUCKET_NAME..."
+aws iam put-role-policy \
+  --role-name $ROLE_NAME \
+  --policy-name IllumioCloudBucketGetLocationPolicy \
+  --policy-document "{
+    \"Version\": \"2012-10-17\",
+    \"Statement\": [
+      {
+        \"Effect\": \"Allow\",
+        \"Sid\": \"IllumioBucketGetLocationAccess\",
+        \"Action\": [\"s3:GetBucketLocation\"],
+        \"Resource\": [\"$BUCKET_ARN\"]
+      }
+    ]
+  }"
 # ============================
 # Collect User Input
 # ============================
