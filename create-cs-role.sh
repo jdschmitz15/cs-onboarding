@@ -198,8 +198,9 @@ EOF
     echo "✅ Flow logs enabled for VPC $VPC_ID and sent to bucket $BUCKET_NAME"
 }
 # ============================
-# Add CS S3 Bucket Policy
+# Add CS VPC Flowlog S3 Bucket Policy
 # ============================
+function updatevpcflowloggpolicy() {
 echo "✅ Applying IllumioBucketListAccessbucket policy to $BUCKET_NAME..."
 aws iam put-role-policy \
   --role-name IllumioCloudIntegrationRole \
@@ -247,6 +248,7 @@ aws iam put-role-policy \
       }
     ]
   }"
+}
 # ============================
 # Collect User Input
 # ============================
@@ -325,6 +327,7 @@ create_trust_policy
 create_iam_role
 attach_policies
 create_vpc_flow_logs
+updatevpcflowloggpolicy
 collect_user_input
 retrieve_aws_data
 run_terraform
