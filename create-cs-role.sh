@@ -201,10 +201,10 @@ EOF
 # Add CS VPC Flowlog S3 Bucket Policy
 # ============================
 function updatevpcflowloggpolicy() {
-echo "✅ Applying IllumioBucketListAccessbucket policy to $BUCKET_NAME..."
+echo "✅ Applying access policy to $BUCKET_NAME..."
 aws iam put-role-policy \
-  --role-name IllumioCloudIntegrationRole \
-  --policy-name IllumioCloudBucketListPolicy \
+  --role-name "$ROLE_NAME" \
+  --policy-name "IllumioCloudBucketAccessPolicy" \
   --policy-document "{
     \"Version\": \"2012-10-17\",
     \"Statement\": [
@@ -213,38 +213,18 @@ aws iam put-role-policy \
         \"Sid\": \"IllumioBucketListAccess\",
         \"Action\": [\"s3:ListBucket\"],
         \"Resource\": [\"${BUCKET_ARN}\"]
-      }
-    ]
-  }"
-
-echo "✅ Applying IllumioBucketReadAccess policy to $BUCKET_NAME..."
-aws iam put-role-policy \
-  --role-name $ROLE_NAME \
-  --policy-name IllumioCloudBucketReadPolicy \
-  --policy-document "{
-    \"Version\": \"2012-10-17\",
-    \"Statement\": [
+      },
       {
         \"Effect\": \"Allow\",
         \"Sid\": \"IllumioBucketReadAccess\",
         \"Action\": [\"s3:GetObject\"],
-        \"Resource\": [\"${BUCKET_ARN}\"]
-      }
-    ]
-  }"
-
-echo "✅ Applying IllumioBucketGetLocationAccess policy to $BUCKET_NAME..."
-aws iam put-role-policy \
-  --role-name $ROLE_NAME \
-  --policy-name IllumioCloudBucketGetLocationPolicy \
-  --policy-document "{
-    \"Version\": \"2012-10-17\",
-    \"Statement\": [
+        \"Resource\": [\"${OBJECT_ARN}\"]
+      },
       {
         \"Effect\": \"Allow\",
         \"Sid\": \"IllumioBucketGetLocationAccess\",
         \"Action\": [\"s3:GetBucketLocation\"],
-        \"Resource\": [\"$BUCKET_ARN\"]
+        \"Resource\": [\"${BUCKET_ARN}\"]
       }
     ]
   }"
