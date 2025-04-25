@@ -97,9 +97,6 @@ function attach_policies() {
         --region $REGION
 
     echo "Creating and attaching inline read-only policy..."
-    cat > $READ_POLICY_FILE <<EOF
-[INSERT_JSON_READ_POLICY_HERE]
-EOF
     aws iam put-role-policy \
         --role-name $ROLE_NAME \
         --policy-name IllumioCloudAWSIntegrationPolicy \
@@ -107,9 +104,6 @@ EOF
         --region $REGION
 
     echo "Creating and attaching inline write policy..."
-    cat > $WRITE_POLICY_FILE <<EOF
-[INSERT_JSON_WRITE_POLICY_HERE]
-EOF
     aws iam put-role-policy \
         --role-name $ROLE_NAME \
         --policy-name IllumioCloudAWSProtectionPolicy \
