@@ -187,7 +187,11 @@ function create_vpc_flow_logs() {
   ]
 }
 EOF
-
+    if aws s3api get-bucket-policy --bucket "$BUCKET_NAME" >/dev/null 2>&1; then
+      echo "🗑️ Bucket policy exists — deleting..."
+      aws s3api delete-bucket-policy --bucket "$BUCKET_NAME"
+      echo "✅ Policy deleted."
+    fi
     # Apply bucket policy
     echo "🔐 Applying bucket policy to $BUCKET_NAME..."
     aws s3api put-bucket-policy \
