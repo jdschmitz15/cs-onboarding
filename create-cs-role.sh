@@ -61,7 +61,23 @@ EOF
 function create_iam_role() {
     echo "Checking if IAM Role $ROLE_NAME already exists..."
     if aws iam get-role --role-name $ROLE_NAME --region $REGION > /dev/null 2>&1; then
-        echo "IAM Role $ROLE_NAME already exists. Skipping creation."
+        echo "ℹ️ Role $ROLE_NAME exists. Deleting it..."
+
+      # 2. Detach inline policies
+      POLICY_NAMES=$(aws iam list-role-policies --role-name "$ROLE_NAME" --query "PolicyNames" --output text)
+      for policy in $POLICY_NAMES; do
+        aws iam delete-role-policy --role-name "$ROLE_NAME" --policy-name "$policy"
+      done
+
+      # 3. Detach managed policies (if any)
+      MANAGED_POLICIES=$(aws iam list-attached-role-policies --role-name "$ROLE_NAME" --query "AttachedPolicies[].PolicyArn" --output text)
+      for policy_arn in $MANAGED_POLICIES; do
+        aws iam detach-role-policy --role-name "$ROLE_NAME" --policy-arn "$policy_arn"
+      done
+
+      # 4. Delete the role
+      aws iam delete-role --role-name "$ROLE_NAME"
+      echo "🗑️ Deleted role: $ROLE_NAME"  
     else
         echo "Creating IAM Role: $ROLE_NAME"
         aws iam create-role \
@@ -261,7 +277,6 @@ function collect_user_input() {
 # ============================
 function retrieve_aws_data() {
     ROLE_ARN=$(aws iam list-roles --query "Roles[?contains(RoleName, '$ROLE_NAME')].[Arn]" --output text)
-   # ROLE_ID=$(aws iam list-roles --query "Roles[?contains(RoleName, '$ROLE_NAME')].[RoleId]" --output text)
     ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
     if [[ -z "$ROLE_ARN" ]]; then
@@ -269,12 +284,6 @@ function retrieve_aws_data() {
         exit 1
     fi
     echo "✅ Cluster Role ARN: $ROLE_ARN"
-
-    # if [[ -z "$ROLE_ID" ]]; then
-    #     echo "❌ Could not retrieve Role ID for $ROLE_NAME"
-    #     exit 1
-    # fi
-    echo "✅ Cluster Role ID: $ROLE_ID"
 
     if [[ -z "$ACCOUNT_ID" ]]; then
         echo "❌ Could not retrieve Account ID"
