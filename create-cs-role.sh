@@ -78,13 +78,12 @@ function create_iam_role() {
       # 4. Delete the role
       aws iam delete-role --role-name "$ROLE_NAME"
       echo "🗑️ Deleted role: $ROLE_NAME"  
-    else
-        echo "Creating IAM Role: $ROLE_NAME"
-        aws iam create-role \
-            --role-name $ROLE_NAME \
-            --assume-role-policy-document file://$DIR/$TRUST_POLICY_FILE \
-            --region $REGION
-    fi
+    fi 
+    echo "Creating IAM Role: $ROLE_NAME"
+    aws iam create-role \
+      --role-name $ROLE_NAME \
+      --assume-role-policy-document file://$DIR/$TRUST_POLICY_FILE \
+      --region $REGION
 }
 
 # ============================
