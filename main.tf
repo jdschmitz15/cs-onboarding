@@ -1,55 +1,27 @@
-resource "illumio-cloudsecure_aws_account" "aws_onboarded" {
-  account_id       = var.aws_account_id
-  name             = "HOL Onboarded AWS Account"
-  role_arn         = aws_iam_role.illumio_cloud_integration.arn
-  role_external_id = random_id.external_id.hex
-
-  # Optional attributes
-  mode            = "ReadWrite"
-  #organization_id = "o-3eehyj6qk0"
-}
-resource "random_id" "external_id" {
-  byte_length = 18
+terraform {
+  required_providers {
+    illumio-cloudsecure = {
+      source  = "illumio/illumio-cloudsecure"
+      version = ">= 1.0.11"
+    }
+  }
 }
 
-resource "aws_iam_role" "illumio_cloud_integration" {
-  name = "IllumioCloudIntegrationRole"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Principal = {
-        AWS = "arn:aws:iam::712001342241:root"
-      }
-      Action = "sts:AssumeRole"
-      Condition = {
-        StringEquals = {
-          "sts:ExternalId" = random_id.external_id.hex
-        }
-      }
-    }]
-  })
+provider "aws" {
+  region = "us-west-1"
 }
 
-resource "aws_iam_role_policy_attachment" "security_audit" {
-  role       = aws_iam_role.illumio_cloud_integration.name
-  policy_arn = "arn:aws:iam::aws:policy/SecurityAudit"
+provider "illumio-cloudsecure" {
+  client_id     = var.illumio_cloudsecure_client_id
+  client_secret = var.illumio_cloudsecure_client_secret
 }
 
-resource "aws_iam_role_policy" "readonly" {
-  name   = "IllumioCloudAWSIntegrationPolicy"
-  role   = aws_iam_role.illumio_cloud_integration.id
-  policy = file("./readonly.json")
+module "aws_account_dev" {
+  source  = "illumio/cloudsecure/illumio//modules/aws_account"
+  version = "1.5.1"
+  name    = "Test Account"
+  tags    = {
+    Name  = "CloudSecure Account Policy"
+    Owner = "Engineering"
+  }
 }
-
-resource "aws_iam_role_policy" "readwrite" {
-  name   = "IllumioCloudAWSProtectionPolicy"
-  role   = aws_iam_role.illumio_cloud_integration.id
-  policy = file("./readwrite.json")
-}
-
-# resource "illumio-cloudsecure_aws_flow_logs_s3_bucket" "flow_log_bucket" {
-#   account_id    = var.aws_account_id
-#   s3_bucket_arn = var.storage_bucket_arn
-# }
