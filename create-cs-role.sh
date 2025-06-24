@@ -312,8 +312,8 @@ check_prerequisites
 create_trust_policy
 create_iam_role
 attach_policies
-create_vpc_flow_logs
-updatevpcflowloggpolicy
-collect_user_input
+#create_vpc_flow_logs
+#updatevpcflowloggpolicy
+#collect_user_input
 retrieve_aws_data
 run_terraform
