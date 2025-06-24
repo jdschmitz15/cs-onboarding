@@ -9,11 +9,11 @@ variable "illumio_cloudsecure_client_secret" {
   description = "The OAuth 2 client secret used to authenticate against the CloudSecure Config API."
 }
 
-variable "aws_account_id" {
-  type        = string
-  sensitive   = true
-  description = "AWS acount id."
-}
+# variable "aws_account_id" {
+#   type        = string
+#   sensitive   = true
+#   description = "AWS acount id."
+# }
 
 # variable "role_arn" {
 #   type        = string
