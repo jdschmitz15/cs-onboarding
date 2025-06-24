@@ -15,21 +15,21 @@ variable "aws_account_id" {
   description = "AWS acount id."
 }
 
-variable "role_arn" {
-  type        = string
-  sensitive   = true
-  description = "The AWS role arn for onboarding aws."
-}
+# variable "role_arn" {
+#   type        = string
+#   sensitive   = true
+#   description = "The AWS role arn for onboarding aws."
+# }
 
-variable "role_external_id" {
-  type        = string
-  sensitive   = true
-  description = "The AWS role id for onboarding aws."
-}
+# variable "role_external_id" {
+#   type        = string
+#   sensitive   = true
+#   description = "The AWS role id for onboarding aws."
+# }
 
-variable "storage_bucket_arn" {
-  type        = string
-  sensitive   = true
-  description = "The S3 bucket ARN for flow logs."
+# variable "storage_bucket_arn" {
+#   type        = string
+#   sensitive   = true
+#   description = "The S3 bucket ARN for flow logs."
   
-}
+# }
