@@ -18,24 +18,24 @@ variable "azure_subscription_id" {
   }
 }
 
-variable "azure_client_id" {
-  type        = string
-  description = "The Azure Client ID."
-  validation {
-    condition     = length(var.azure_client_id) > 0
-    error_message = "The azure_client_id value must not be empty."
-  }
-}
+# variable "azure_client_id" {
+#   type        = string
+#   description = "The Azure Client ID."
+#   validation {
+#     condition     = length(var.azure_client_id) > 0
+#     error_message = "The azure_client_id value must not be empty."
+#   }
+# }
 
-variable "azure_client_secret" {
-  type        = string
-  sensitive   = true
-  description = "The Azure Client Secret."
-  validation {
-    condition     = length(var.azure_client_secret) > 0
-    error_message = "The azure_client_secret value must not be empty."
-  }
-}
+# variable "azure_client_secret" {
+#   type        = string
+#   sensitive   = true
+#   description = "The Azure Client Secret."
+#   validation {
+#     condition     = length(var.azure_client_secret) > 0
+#     error_message = "The azure_client_secret value must not be empty."
+#   }
+# }
 
 variable "azure_tenant_id" {
   type        = string
