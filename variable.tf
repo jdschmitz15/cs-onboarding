@@ -37,14 +37,14 @@ variable "azure_subscription_id" {
 #   }
 # }
 
-variable "azure_tenant_id" {
-  type        = string
-  description = "The Azure Tenant ID."
-  validation {
-    condition     = length(var.azure_tenant_id) > 0
-    error_message = "The azure_tenant_id value must not be empty."
-  }
-}
+# variable "azure_tenant_id" {
+#   type        = string
+#   description = "The Azure Tenant ID."
+#   validation {
+#     condition     = length(var.azure_tenant_id) > 0
+#     error_message = "The azure_tenant_id value must not be empty."
+#   }
+# }
 # variable "aws_account_id" {
 #   type        = string
 #   sensitive   = true
