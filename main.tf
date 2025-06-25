@@ -14,6 +14,7 @@ module "azure_subscription_dev" {
   version                = "1.5.1"
   name                   = "Test Azure Subscription"
   mode                   = "ReadWrite"
+  iam_name_prefix        = "abc"
 #   secret_expiration_days = 365
 #   subscription_id        = var.azure_subscription_id # Azure Subscription ID
 #   tenant_id              = var.azure_tenant_id # Azure Tenant ID
