@@ -18,6 +18,14 @@ variable "azure_subscription_id" {
   }
 }
 
+variable "account_id" {
+  type        = string
+  description = "The account ID for the CloudSecure configuration."
+  validation {
+    condition     = length(var.account_id) > 0
+    error_message = "The account_id value must not be empty."
+  }
+}
 # variable "azure_client_id" {
 #   type        = string
 #   description = "The Azure Client ID."
